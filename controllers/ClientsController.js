@@ -1,8 +1,8 @@
 const { Client } = require('../models/index');
 
-/* const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); 
 const bcrypt = require('bcrypt');
-let authConfig = require('../config/auth'); */
+let authConfig = require('../config/auth');  
 
 
 const ClientsController = {};
@@ -16,60 +16,62 @@ ClientsController.getClients = (req, res) => {
     });
 };
 
-/* ClientesController.postCliente = async (req, res) => {
+ ClientsController.registerClient = async (req, res) => {
 
-    let name = req.body.name;
     let dni = req.body.dni;
+    let name = req.body.name;
+    let surname = req.body.surname;
     let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.rounds));
+    let email = req.body.email;
+   /*  let rol = req.body.rol; */
 
-    Cliente.create({
-        name: name,
+    Client.create({
         dni: dni,
-        password: password
-    }).then(cliente => {
-        res.send(`${cliente.name}, you have been added succesfully`);
+        name: name,
+        surname: surname,
+        password: password,
+        email:email,
+        /* rol:rol */
+
+    }).then(client => {
+        res.send(`${client.name} have been added succesfully`);
 
     }).catch((error) => {
         res.send(error);
     });
     
-    
-};
+}; 
 
-ClientesController.loginCliente = (req, res) => {
+ClientsController.loginClient = (req, res) => {
 
-    let documentacion = req.body.dni;
-    let clave = req.body.password;
+    let email = req.body.email;
+    let password = req.body.password;
 
-    Cliente.findOne({
-        where : {dni : documentacion}
+    Client.findOne({
+        where : {email: email}
 
-    }).then(usuarioEncontrado => {
+    }).then(user => {
 
-        if(!usuarioEncontrado){
-            res.send("Usuario o password incorrectos");
+        if(!user){
+            res.send("User or password are wrong!");
         } else {
-            if( bcrypt.compareSync(clave, usuarioEncontrado.password)){
-                //Ahora ya si hemos comprobado que el usuario existe (email es correcto) y el password SI corresponde a ese usuario
+            if( bcrypt.compareSync(password, user.password)){
 
-                let token = jwt.sign({ user: usuarioEncontrado }, authConfig.secret, {
+                let token = jwt.sign({ user: user }, authConfig.secret, {
                     expiresIn: authConfig.expires
                 });
 
-                console.log(token);
-                
-                let loginOKmessage = `Welcome again ${usuarioEncontrado.name}`
+                let succesfulUser = `Welcome again ${user.name}`
                 res.json({
-                    loginOKmessage,
-                    user: usuarioEncontrado,
+                    succesfulUser,
+                    user: user,
                     token: token
                 })
             };
         };
-
     }).catch(err => console.log(err));
 };
- */
+
 
 
 //Export
