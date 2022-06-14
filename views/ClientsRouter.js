@@ -7,6 +7,10 @@ const ClientsController = require('../controllers/ClientsController');
 
 //Endpoint-function links
 router.get('/', auth, ClientsController.getClients);
+router.get('/user/:id', ClientsController.getAClient);
+
+router.put('/user/:id',ClientsController.updateUser);
+
 
 router.post('/register',ClientsController.registerClient);
 

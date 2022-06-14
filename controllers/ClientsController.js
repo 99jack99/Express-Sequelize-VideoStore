@@ -16,6 +16,46 @@ ClientsController.getClients = (req, res) => {
     });
 };
 
+ClientsController.getAClient = async (req, res) => {
+
+    let id = req.params.id;
+    
+    await Client.findOne({
+        where: { id : id}
+    })
+    .then(data => {
+        res.send(data)
+    });
+};
+
+ClientsController.updateUser = async (req, res) => {
+
+    let id = req.params.id;
+    let dni = req.params.dni;
+    let name = req.params.name;
+    let surname = req.params.surname;
+    let password = req.params.password;
+    let email = req.params.email;
+
+    await Client.findOne({
+        where: { id : id}
+    })
+    
+    await Client.upsert({
+        dni:dni,
+        name:name,
+        surname:surname,
+        password:password,
+        email:email
+    })
+    .then(data => {
+        res.send(data)
+    });
+
+    
+};
+
+
  ClientsController.registerClient = async (req, res) => {
 
     let dni = req.body.dni;
