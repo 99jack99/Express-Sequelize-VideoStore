@@ -1,76 +1,73 @@
 const { Client } = require('../models/index');
 
-const jwt = require('jsonwebtoken'); 
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-let authConfig = require('../config/auth');  
+let authConfig = require('../config/auth');
 
 
 const ClientsController = {};
 
 ClientsController.getClients = (req, res) => {
-    
+
     Client.findAll()
-    .then(data => {
-    
-        res.send(data)
-    });
+        .then(data => {
+
+            res.send(data)
+        });
 };
 
 ClientsController.getAClient = async (req, res) => {
 
     let id = req.params.id;
-    
+
     await Client.findOne({
-        where: { id : id}
+        where: { id: id }
     })
+
     .then(data => {
-        res.send(data)
+            res.send(data)
     });
 };
 
 ClientsController.updateUser = async (req, res) => {
 
     let id = req.params.id;
-    let dni = req.params.dni;
-    let name = req.params.name;
-    let surname = req.params.surname;
-    let password = req.params.password;
-    let email = req.params.email;
+    let dni = req.body.dni;
+    let name = req.body.name;
+    let surname = req.body.surname;
+ 
 
-    await Client.findOne({
-        where: { id : id}
-    })
-    
-    await Client.upsert({
-        dni:dni,
-        name:name,
-        surname:surname,
-        password:password,
-        email:email
-    })
-    .then(data => {
-        res.send(data)
+    await Client.update({
+        dni: dni,
+        name: name,
+        surname: surname
+    },
+        {
+            where: {
+                id: id
+            }
+        })
+    .then(Client => {
+            res.send(`You have updated your user info`);
     });
-
-    
 };
 
 
- ClientsController.registerClient = async (req, res) => {
+ClientsController.registerClient = async (req, res) => {
 
     let dni = req.body.dni;
     let name = req.body.name;
     let surname = req.body.surname;
     let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.rounds));
     let email = req.body.email;
-   /*  let rol = req.body.rol; */
+    /*  let rol = req.body.rol; */
 
     Client.create({
         dni: dni,
         name: name,
         surname: surname,
         password: password,
-        email:email,
+        email: email,
         /* rol:rol */
 
     }).then(client => {
@@ -79,8 +76,8 @@ ClientsController.updateUser = async (req, res) => {
     }).catch((error) => {
         res.send(error);
     });
-    
-}; 
+
+};
 
 ClientsController.loginClient = (req, res) => {
 
@@ -88,14 +85,14 @@ ClientsController.loginClient = (req, res) => {
     let password = req.body.password;
 
     Client.findOne({
-        where : {email: email}
+        where: { email: email }
 
     }).then(user => {
 
-        if(!user){
+        if (!user) {
             res.send("User or password are wrong!");
         } else {
-            if( bcrypt.compareSync(password, user.password)){
+            if (bcrypt.compareSync(password, user.password)) {
 
                 let token = jwt.sign({ user: user }, authConfig.secret, {
                     expiresIn: authConfig.expires
