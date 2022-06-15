@@ -3,6 +3,7 @@ const { Client } = require('../models/index');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 let authConfig = require('../config/auth');
+/* const { and } = require('sequelize/types'); */
 
 
 const ClientsController = {};
@@ -24,9 +25,9 @@ ClientsController.getAClient = async (req, res) => {
         where: { id: id }
     })
 
-    .then(data => {
+        .then(data => {
             res.send(data)
-    });
+        });
 };
 
 ClientsController.updateUser = async (req, res) => {
@@ -35,7 +36,7 @@ ClientsController.updateUser = async (req, res) => {
     let dni = req.body.dni;
     let name = req.body.name;
     let surname = req.body.surname;
- 
+
 
     await Client.update({
         dni: dni,
@@ -47,10 +48,44 @@ ClientsController.updateUser = async (req, res) => {
                 id: id
             }
         })
-    .then(Client => {
-            res.send(`You have updated your user info`);
-    });
+        .then(
+            res.send(`You have updated your user info`)
+        );
 };
+
+ ClientsController.updatePassword = (req, res) => {
+
+    let id = req.params.id;
+    let email = req.body.email;
+    let password = bcrypt.hashSync(req.body.password, Number.parseInt(authConfig.rounds));
+ 
+
+    Client.findOne({
+        where: {
+            email: email
+        }
+
+    }).then(Client => {
+
+        if (!Client) {
+            res.send("User or password are wrong!");
+        } else {
+            Client.update({
+                password: password
+            },
+            {
+                where: {
+                    id: id
+                }
+            })
+            .then(client => {
+                res.send(`Hi ${client.name} your password has been updated succesfully`);
+            })
+        };
+
+    }).catch(err => console.log(err));
+}; 
+
 
 
 ClientsController.registerClient = async (req, res) => {

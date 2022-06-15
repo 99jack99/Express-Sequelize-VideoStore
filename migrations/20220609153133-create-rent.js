@@ -31,9 +31,6 @@ module.exports = {
       totalPrice: {
         type: Sequelize.STRING
       },
-      beginDate: {
-        type: Sequelize.STRING
-      },
       endDate: {
         type: Sequelize.STRING
       },

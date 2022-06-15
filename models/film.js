@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Film.init({
-    name: DataTypes.STRING,
+    tittle: DataTypes.STRING,
     genre: DataTypes.STRING,
     length: DataTypes.INTEGER,
     description: DataTypes.STRING,

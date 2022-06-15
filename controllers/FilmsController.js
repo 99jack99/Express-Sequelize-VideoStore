@@ -15,6 +15,22 @@ FilmsController.getFilms = (req, res) => {
     });
 };
 
+/* STILL TO SOLUTION */
+FilmsController.searchFilm = (req, res) => {
+    
+    let tittle = req.param.tittle
+
+console.log(tittle);
+
+    Film.findOne({
+        where : { tittle : tittle}
+
+    }).then(Film => {
+        res.send(`Hi, ${Film} is available in our store! Go watch it!`)
+    });
+};
+
+
 FilmsController.addFilm = async (req, res) => {
 
     let name = req.body.name;
