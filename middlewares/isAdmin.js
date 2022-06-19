@@ -4,17 +4,20 @@ const authConfig = require('../config/auth');
 
 //Export logic
 module.exports = (req, res, next) => {
-    if(!req.headers.authorization) {
-        res.status(401).json({ msg: "Denied access" });
-    } else {
-        let token = req.headers.authorization.split(" ")[1];
-        jwt.verify(token, authConfig.secret, (err, decoded) => {
-            if(err) {
-                res.status(500).json({ msg: "There has been an error during token validation", err });
-            } else {
-                req.user = decoded;
-                next();
-            }
-        })
+    // pick the token
+    let token = req.headers.authorization.split(' ')[1];
+    // pick the user logged
+    let {user} = jwt.decode(token, authConfig.secret);
+    try {
+        if (user.rol == "admin") {
+            next();
+        } else {
+            res.status(403).send({ msg: `User is not allowed.` });
+        }
+    } catch (error) {
+        res.status(400).json({
+            msg: `Something bad happened, try to check the information you put and try again.`,
+            error: error
+        });
     }
 };
