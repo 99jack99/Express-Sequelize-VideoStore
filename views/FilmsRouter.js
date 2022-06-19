@@ -10,7 +10,9 @@ router.get('/', FilmsController.getFilms);
 
 router.post('/addfilm',auth, FilmsController.addFilm);
 
-router.get('/:tittle',auth, FilmsController.searchFilm);
+router.get('/:tittle',FilmsController.searchFilm);
+
+router.get('/genre',FilmsController.searchGenre);
 
 
 

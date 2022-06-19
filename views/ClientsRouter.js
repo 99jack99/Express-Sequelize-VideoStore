@@ -8,12 +8,11 @@ const ClientsController = require('../controllers/ClientsController');
 //Endpoint-function links
 router.get('/', auth, ClientsController.getClients);
 
-router.get('/user/:id', ClientsController.getAClient);
+router.get('/user/:id', auth, ClientsController.getAClient);
 
-router.put('/user/:id',ClientsController.updateUser);
+router.put('/user/:id', auth, ClientsController.updateUser);
 
-router.put('/user/:id/changepassword',ClientsController.updatePassword);
-
+router.put('/user/:id/changepassword', auth, ClientsController.updatePassword);
 
 
 router.post('/register',ClientsController.registerClient);

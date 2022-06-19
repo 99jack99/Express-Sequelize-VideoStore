@@ -2,12 +2,12 @@ const { Film } = require('../models/index');
 
 const jwt = require('jsonwebtoken'); 
 const bcrypt = require('bcrypt');
-let authConfig = require('../config/auth');  
+/* let authConfig = require('../config/auth');  */ 
 
 
 const FilmsController = {};
 
-FilmsController.getFilms = (req, res) => {
+FilmsController.getFilms = async (req, res) => {
     
     Film.findAll()
     .then(data => {
@@ -16,24 +16,39 @@ FilmsController.getFilms = (req, res) => {
 };
 
 /* STILL TO SOLUTION */
-FilmsController.searchFilm = (req, res) => {
-    
-    let tittle = req.param.tittle
+FilmsController.searchFilm = async (req, res) => {
 
-console.log(tittle);
+    let tittle = req.body.tittle
+
 
     Film.findOne({
         where : { tittle : tittle}
 
     }).then(Film => {
-        res.send(`Hi, ${Film} is available in our store! Go watch it!`)
+        res.send(`${Film.tittle} is currently available in our store! Go watch it!`)
     });
+};
+
+FilmsController.searchGenre = async (req, res) => {
+    
+    let query = `SELECT DISTINCT genre FROM films ORDER BY genre;`;
+
+
+    let results = await Film.sequelize.query(query, {
+        type: Film.sequelize.QueryTypes.SELECT
+    });
+
+    if(results != 0){
+        res.send(results);
+    }else {
+        res.send("There is no genre like that");
+    };
 };
 
 
 FilmsController.addFilm = async (req, res) => {
 
-    let name = req.body.name;
+    let tittle = req.body.tittle;
     let genre = req.body.genre;
     let length = req.body.length;
     let description = req.body.description;
@@ -42,7 +57,7 @@ FilmsController.addFilm = async (req, res) => {
 
 
     Film.create({
-        name: name,
+        tittle: tittle,
         genre: genre,
         length: length,
         description: description,
@@ -51,7 +66,7 @@ FilmsController.addFilm = async (req, res) => {
        
 
     }).then(Film => {
-        res.send(`${Film.name} have been added succesfully`);
+        res.send(`${Film.tittle} have been added succesfully`);
 
     }).catch((error) => {
         res.send(error);
