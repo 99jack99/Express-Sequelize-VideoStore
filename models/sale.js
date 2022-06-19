@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     clientId: DataTypes.INTEGER,
     filmId:DataTypes.INTEGER,
 
-    totalPrice: DataTypes.STRING
+    totalPrice: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Sale',

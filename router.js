@@ -8,7 +8,7 @@ const SalesRouter = require('./views/SalesRouter');
 
 router.use('/clients', ClientsRouter);
 router.use('/films', FilmsRouter);
-router.use('/sales', FilmsRouter);
+router.use('/sales', SalesRouter);
 
 
 
