@@ -1,107 +1,87 @@
-<h1 align="center">
- 📼Videostore📼
-</h1>
 
-<div align="center">
-<h3 ><em> Created by: </em></h3>
-<br>
-<em> - Jackson Almeida Da Luz - </em>
-</div>
+|  <img src="./assets/imgREADME/express.png" width="100%" height="100%"/>  | <img src="./assets/imgREADME/sequelize.webp" width="100%" height="100%"/>    |  <img src="./assets/imgREADME/nodemon.png" width="100%" height="100%"/>    |
+|:--:|:--:|:--:|
+|<img src="./assets/imgREADME/jwt.png" width="100%" height="100%"/>|<img src="./assets/imgREADME/bcrypt.jpg" width="100%" height="100%"/>| <img src="./assets/imgREADME/mysql.png" width="100%" height="100%"/>|
 
+<h1 align="center">📼​ VIDEOSTORE 📼​</h1>
+
+<h1 align="center"></h1>
+<h3 align="center"><em style="color: #ba932f" >Created by: Jackson Almeida</em></h3>
 <hr>
 
-
-<h4 align="center">created with <em>Node.js</em> and <em>Sql</em></h4>
-
-<hr>
+<h2>🚩​​ Intro</h2>
 
 <p align="center">
-    <a href="">Description</a> 
-  <br> -
+  <a href="">Description</a> 
+  <br> 
+  <a href="">Diagram</a> 
   <br>
-  <a href="">ERD</a> 
-  <br> -
+  <a href="">List of endpoints</a>
   <br>
-  <a href="">Dependencies</a> 
-  <br> -
+  <a href="">Extras</a>
   <br>
-  <a href="">Endpoints</a> 
-  <br> -
-  <br>
-  
+  <a href="">Improvements</a>
 </p>
+<hr>
+
+<h2>📝​ Description</h2>
+<br>
+
+***Videostore*** Its a backend project... in more detail, its a videoclub simulated business in which I decided to use relational data base for obvious purposes.
+MVC architectural structure has also been used.
+<br>
+In there, it is shown **clients** and **films**, whose they have N-N (many to many) relation.
+*A client can buy many films and rent many film.
 
 
+<hr>
+<h2>​🆔​ Diagram</h2>
+Here you can see a Screenshot from inverse engineering of workbench: 
+
+
+<img border="3" src="./assets/imgREADME/RE.png" width="100%" height="400"/>
+<div align="center"><sub align="center">Videostore Database - ER Diagram </sub></div>
 <br>
-<h2>Description</h2>
-Videostore is a simulated shopping in which you could buy and rents movies.
-It could be more complexed but for learning reasons I decided to keep it simple, just enough to practice technologies I described.
+<hr>
+<h2>❓​ List of endpoints</h2>
+
+| Table | Type |	Endpoints | Function |Extras|
+|:-----:|:----:|:-----:|:-----:	|:---:|
+| Client | get | .../clients/  | Obtain ALL clients | Token needed| 
+| Client | get | .../clients/user/:id  | Obtain ONE clients |Token needed|
+| Client | post | .../clients/register  | Inscribe client |-|
+| Client | post | .../clients/login  | Login client |- [Creates token here]|
+| Client | put | .../clients/user/:id  | Update client info|Token needed|
+| Client | put | .../clients/user/:id/changepassword  | Update client password|Token needed|
+| Film | get | .../films/ | Obtain ALL film|-|
+| Film | post | .../films/addfilm | Create film|admin needed|
+| Film | get | .../films/:tittle | Obtain a film by its tittle|-|
+| Film | get | .../rents/genre | Obtain films by genre|-|
+| Rent | get | .../rents/ | Obtain all rents done|admin needed|
+| Rent | post | .../rents/rent | Create rent|admin needed|
+| Sale | get | .../sales/ | Obtain all sales done|admin needed|
+| Sale | post | .../sales/sale | Create sale|admin needed|
+
+<hr>
+<h2>🛡️​​ Extras</h2>
 <br>
-<img src="assets/imgREADME/videostore.jpg" width=><br>
+* All Passwords are <strong>encrypted</strong> with Bcrypt.
+<br>
+* Some <strong>fields are regulated</strong> for the purpose of <strong>security</strong>.
+<br>
+* Some fields avoid <strong>unwated information</strong> for the purpose of not filling our database with rubish.
 
 <hr>
 
-<h2>ERD</h2>
+<h2>😭 Improvements</h2>
+- Even though there are regulations and the project is for the purpose of learning, I wish I would have added <strong>more functions</strong> which they are more <strong>used in real life projects</strong>.
+<br>
+<sub><em>for example, verify email*, and dni* </em></sub>
+<br>
+<br>
+- A <strong>file</strong> with different <strong>functionalities</strong> is also a good practice in which I would add functions that I would normally use in order to avoid replicate code.
 <hr>
-
-
-
-<p align="center">
-<img src="assets/imgREADME/RE.png" width=><br>
-<sub>Relations [Many to Many]</sub>
-</p>
-
-<hr>
-
-<h2>Dependecies:</h2>
-<ul>
-<li>express</li>
-<li>sequelize</li>
-<li>sequelize-cli</li>
-<li>mysql2</li>
-<li>jsonwebtoken</li>
-<li>nodemon</li>
-<li>dotenv</li>
-<li>bcrypt</li>
-</ul>
-
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)  ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![SEQUELIZE](https://img.shields.io/badge/sequelize-%23000000.svg?style=for-the-badge&logo=sequelize&logoColor=white) ![JWT](https://img.shields.io/badge/JSONWEBTOKEN-%23000000.svg?style=for-the-badge&logo=JWT&logoColor=white) ![POSTMAN](https://img.shields.io/badge/postman-%23000000.svg?style=for-the-badge&logo=postman&logoColor=orange)  
- 
-
-<hr>
-<h2>Endpoints:</h2>
-
 <br>
-
-<ins>| CLIENTS |</ins>
-<br>
-| /clients/    | <-- get
-| /clients/:id       | <-- get
-| /clients/:id       | <-- put
-| /clients/:id/changepassword      | <-- put
-| /clients/register      | <-- post
-| /clients/login      | <-- post
-<br>
-
-<ins>| FILMS |</ins>
-<br>
-| /films/    | <-- get
-| /films/addfilm       | <-- post
-| /films/:tittle       | <-- get
-| /films/genre     | <-- get
-
-<br>
-
-<ins>| SALES |</ins>
-<br>
-| /sales/    | <-- get
-| /sales/buy      | <-- post
-
-<br>
-
-<ins>| RENTS |</ins>
-<br>
-| /rents/    | <-- get
-| /rents/rent     | <-- post
-
-<br>
+<h2>​🤟​🖖​🖐️​</h2>
+<h2>Thank you for visiting!</h2>
+<img src="./assets/imgREADME/bye.gif" width="100%" height="300"/>
