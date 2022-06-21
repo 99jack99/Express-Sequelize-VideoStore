@@ -29,6 +29,7 @@
 
 ***Videostore*** Its a backend project... in more detail, its a videoclub simulated business in which I decided to use relational data base for obvious purposes.
 MVC architectural structure has also been used.
+<img src="./assets/imgREADME/videostore.jpg" width="100%" height="200"/>
 <br>
 In there, it is shown **clients** and **films**, whose they have N-N (many to many) relation.
 *A client can buy many films and rent many film.
